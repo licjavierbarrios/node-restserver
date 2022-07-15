@@ -1,5 +1,6 @@
 const { response, request } = require("express");
 const jwt = require("jsonwebtoken");
+
 const Usuario = require("../models/usuario");
 
 const validarJWT = async (req = request, res = response, next) => {
@@ -17,18 +18,17 @@ const validarJWT = async (req = request, res = response, next) => {
 		// leer el usuario que corresponde al uid
 		const usuario = await Usuario.findById(uid);
 
-		if(!usuario){
+		if (!usuario) {
 			return res.status(401).json({
-				msg: 'Token no válido - usuario no existe en BD'
-			})
+				msg: "Token no válido - usuario no existe en BD",
+			});
 		}
 
 		// Verificar si el uid tiene estado en true
-		if(!usuario.estado){
+		if (!usuario.estado) {
 			return res.status(401).json({
-				msg: 'Token no válido - usuario con estado: false'
-			})
-
+				msg: "Token no válido - usuario con estado: false",
+			});
 		}
 
 		req.usuario = usuario;
@@ -40,8 +40,6 @@ const validarJWT = async (req = request, res = response, next) => {
 			msg: "Token no válido",
 		});
 	}
-
-	next();
 };
 
 module.exports = {

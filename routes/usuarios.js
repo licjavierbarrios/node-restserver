@@ -15,7 +15,7 @@ const {
 } = require("../helpers/db-validators");
 
 const {
-	usuariosGEt,
+	usuariosGet,
 	usuarioPut,
 	usuarioPost,
 	usuarioDelete,
@@ -24,7 +24,7 @@ const {
 
 const router = Router();
 
-router.get("/", usuariosGEt);
+router.get("/", usuariosGet);
 
 router.put(
 	"/:id",
@@ -47,8 +47,6 @@ router.post(
 		check("correo", "El correo no es válido").isEmail(),
 		check("correo").custom(emailExiste),
 		check("rol").custom(esRoleValido),
-		// check("rol").custom(esRoleValido),
-		// check('rol','No es un rol válido').isIn(['ADMIN_ROLE','USER_ROLE']),
 		validarCampos,
 	],
 	usuarioPost
