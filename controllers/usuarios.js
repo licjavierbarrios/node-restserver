@@ -64,14 +64,10 @@ const usuarioPatch = (req, res) => {
 	});
 };
 
-const usuarioDelete = async(req, res) => {
-	const {id, estado} = req.params;
-
-	// Borrado fisíco - No recomendado por la integridad física de la BD
-	// const usuario = await Usuario.findByIdAndDelete(id);
+const usuarioDelete = async(req, res = response) => {
+	const {id} = req.params;
 
 	const usuario = await Usuario.findByIdAndUpdate(id, {estado: false});
-
 
 	res.json(usuario);
 };
